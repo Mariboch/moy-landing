@@ -35,7 +35,7 @@ export function Hero() {
         </motion.div>
 
         {/* Headline — kinetic */}
-        <h1 className="kinetic-xl max-w-[18ch]">
+        <h1 className="kinetic-xl max-w-[22ch]">
           {lines.map((line, i) => (
             <span key={i} className="block overflow-hidden">
               <motion.span
@@ -46,10 +46,9 @@ export function Hero() {
                 className="inline-block will-change-transform"
               >
                 {i === 2 ? (
-                  <>
-                    приложения и{" "}
-                    <span className="italic-accent text-[var(--color-flame)]">AI-агентов,</span>
-                  </>
+                  <span className="italic-accent text-[var(--color-flame)]">
+                    {line}
+                  </span>
                 ) : (
                   line
                 )}

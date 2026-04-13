@@ -26,7 +26,7 @@ export function Process() {
           </p>
         </div>
 
-        {/* Steps — stacked rows with neo-brutal offset shadows */}
+        {/* Steps — two-row card layout: header + detail grid */}
         <div className="space-y-4 md:space-y-5">
           {p.steps.map((step, i) => (
             <motion.div
@@ -35,41 +35,46 @@ export function Process() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.7, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="squircle bg-[var(--color-paper)] group relative"
+              className="squircle bg-[var(--color-paper)] group relative p-6 md:p-8"
               style={{
                 boxShadow: "4px 4px 0 var(--color-ink)",
               }}
             >
-              <div className="grid grid-cols-1 md:grid-cols-[110px_1fr_1fr_1fr_1fr] gap-4 md:gap-6 p-6 md:p-7 items-start">
+              {/* Header row: number + title + duration */}
+              <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 pb-5 mb-5 border-b border-[var(--color-rule)]">
                 <div className="flex items-baseline gap-3">
                   <span className="font-[family-name:var(--font-mono)] text-[11px] text-[var(--color-ink-3)] tracking-wider">
                     /{step.number}
                   </span>
-                  <span className="font-[family-name:var(--font-display)] text-[28px] md:text-[36px] leading-none">
+                  <h3 className="font-[family-name:var(--font-display)] text-[26px] md:text-[34px] leading-none">
                     {step.title}
+                  </h3>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <StepLabel>длительность</StepLabel>
+                  <span className="text-[14px] text-[var(--color-flame)] font-[family-name:var(--font-mono)]">
+                    {step.duration}
                   </span>
                 </div>
-                <div>
-                  <StepLabel>длительность</StepLabel>
-                  <div className="text-[14px] mt-1 text-[var(--color-flame)] font-[family-name:var(--font-mono)]">
-                    {step.duration}
-                  </div>
-                </div>
+              </div>
+
+              {/* Detail grid: 3 columns on md+, stacked on mobile */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 <div>
                   <StepLabel>что делаю я</StepLabel>
-                  <div className="text-[14px] mt-1 text-[var(--color-ink-2)]">
+                  <div className="text-[14px] mt-2 text-[var(--color-ink-2)] leading-[1.55]">
                     {step.what}
                   </div>
                 </div>
                 <div>
                   <StepLabel>нужно от вас</StepLabel>
-                  <div className="text-[14px] mt-1 text-[var(--color-ink-2)]">
+                  <div className="text-[14px] mt-2 text-[var(--color-ink-2)] leading-[1.55]">
                     {step.need}
                   </div>
                 </div>
                 <div>
                   <StepLabel>получаете</StepLabel>
-                  <div className="text-[14px] mt-1 text-[var(--color-ink-2)]">
+                  <div className="text-[14px] mt-2 text-[var(--color-ink-2)] leading-[1.55]">
                     {step.get}
                   </div>
                 </div>

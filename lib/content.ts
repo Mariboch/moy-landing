@@ -349,7 +349,7 @@ export const content = {
       primary: { label: "Написать в Telegram", href: "https://t.me/maribochkareva" },
       secondary: [
         { label: "Email", href: "mailto:demo@aistartup.ru" },
-        { label: "Забронировать созвон", href: "https://cal.com" },
+        { label: "Забронировать созвон", href: "https://t.me/maribochkareva" },
       ],
     },
   },

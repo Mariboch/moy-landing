@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { content } from "@/lib/content";
 
@@ -120,13 +120,13 @@ export function AIAnalyzer() {
         </div>
 
         {/* Heading */}
-        <div className="max-w-[20ch] mb-8">
+        <div className="mb-8">
           <h2
             className="kinetic-xl text-[var(--color-paper)]"
-            style={{ fontSize: "clamp(2.5rem, 7vw, 6rem)" }}
+            style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)" }}
           >
-            <span className="block">{d.heading.line1}</span>
-            <span className="block">
+            <span className="block whitespace-nowrap">{d.heading.line1}</span>
+            <span className="block whitespace-nowrap">
               <span className="italic-accent text-[var(--color-electric)]">
                 {d.heading.line2}
               </span>
