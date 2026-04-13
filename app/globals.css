@@ -1,0 +1,319 @@
+@import "tailwindcss";
+
+@theme {
+  /* ─── Palette: Warm Paper + Dark AI Grotto ─────────────── */
+  --color-paper: #faf8f3;
+  --color-paper-2: #f1ede3;
+  --color-paper-3: #e6e0d0;
+  --color-ink: #121110;
+  --color-ink-2: #3a3733;
+  --color-ink-3: #6b6660;
+  --color-rule: #d9d3c2;
+
+  /* Dark AI grotto */
+  --color-grotto: #0b0d12;
+  --color-grotto-2: #131620;
+  --color-grotto-rule: #2a2e3b;
+
+  /* Signals */
+  --color-ink-accent: #2a1f16; /* for subtle warm ink */
+  --color-flame: #e85d2b;     /* flame orange — primary accent */
+  --color-flame-2: #f7a96a;
+  --color-electric: #9eff4f;  /* lime — AI cursor / active */
+  --color-ai-blue: #7aa2ff;
+
+  /* Fonts registered via next/font (see layout.tsx) */
+  --font-display: var(--font-bricolage);
+  --font-body: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+
+  /* Easing */
+  --ease-kinetic: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    font-family: var(--font-body), system-ui, sans-serif;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-feature-settings: "ss01", "cv11";
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  /* Grain overlay — warm paper texture */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.08;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='280' height='280' filter='url(%23n)'/></svg>");
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display), serif;
+    letter-spacing: -0.025em;
+    font-weight: 500;
+    color: var(--color-ink);
+    line-height: 0.95;
+  }
+
+  button {
+    font-family: inherit;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  /* Focus rings — kinetic, not sterile */
+  *:focus-visible {
+    outline: 2px solid var(--color-flame);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer utilities {
+  /* Editorial mono label — e.g. § 01 — WHAT I DO */
+  .ledger {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+  }
+
+  .ledger-flame {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-flame);
+  }
+
+  /* Kinetic display heading — clamp-based fluid type */
+  .kinetic-xl {
+    font-family: var(--font-display), serif;
+    font-size: clamp(2.75rem, 9vw, 8.5rem);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    font-weight: 500;
+  }
+
+  .kinetic-lg {
+    font-family: var(--font-display), serif;
+    font-size: clamp(2.25rem, 5.5vw, 4.75rem);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    font-weight: 500;
+  }
+
+  .kinetic-md {
+    font-family: var(--font-display), serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    font-weight: 500;
+  }
+
+  /* Italic accent — contrasted tone */
+  .italic-accent {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* Container */
+  .edge {
+    width: 100%;
+    max-width: 1440px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
+  }
+
+  .rule {
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .rule-double {
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  /* Paper squircle cards */
+  .squircle {
+    border-radius: 22px;
+    border: 1px solid var(--color-rule);
+  }
+
+  /* Subtle inner paper shadow */
+  .paper-inset {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      0 1px 2px rgba(24, 20, 14, 0.04),
+      0 12px 32px -16px rgba(24, 20, 14, 0.08);
+  }
+
+  /* Flame button */
+  .btn-flame {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.9rem 1.6rem;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: -0.005em;
+    border-radius: 999px;
+    transition: transform 0.35s var(--ease-kinetic), background 0.3s;
+    border: 1px solid var(--color-ink);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn-flame:hover {
+    background: var(--color-flame);
+    border-color: var(--color-flame);
+    transform: translateY(-1px);
+  }
+
+  .btn-flame:active {
+    transform: translateY(0);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.9rem 1.6rem;
+    background: transparent;
+    color: var(--color-ink);
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-rule);
+    transition: all 0.3s var(--ease-kinetic);
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-ink);
+    background: var(--color-paper-2);
+  }
+
+  /* Dark grotto variants */
+  .btn-grotto-flame {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.9rem 1.6rem;
+    background: var(--color-electric);
+    color: var(--color-grotto);
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 999px;
+    transition: all 0.35s var(--ease-kinetic);
+    border: 1px solid var(--color-electric);
+    cursor: pointer;
+  }
+
+  .btn-grotto-flame:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0 0 3px rgba(158, 255, 79, 0.2);
+  }
+
+  .btn-grotto-flame:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Marquee animation */
+  @keyframes marquee-loop {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .marquee {
+    display: flex;
+    gap: 4rem;
+    width: max-content;
+    animation: marquee-loop 42s linear infinite;
+  }
+
+  /* Blinking terminal cursor */
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+
+  .cursor-blink {
+    display: inline-block;
+    width: 0.55em;
+    height: 1em;
+    background: var(--color-electric);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: blink 1s steps(1, end) infinite;
+  }
+
+  /* Noise on dark grotto — tighter grain */
+  .grotto-noise {
+    position: relative;
+  }
+
+  .grotto-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.62  0 0 0 0 1  0 0 0 0 0.31  0 0 0 1 0'/></filter><rect width='220' height='220' filter='url(%23n)'/></svg>");
+  }
+
+  /* Dot grid background — AI grotto */
+  .dotgrid {
+    background-image: radial-gradient(circle at 1px 1px, rgba(158, 255, 79, 0.15) 1px, transparent 0);
+    background-size: 28px 28px;
+  }
+
+  /* Hide scrollbar for marquees */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee { animation: none; }
+    .cursor-blink { animation: none; opacity: 1; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
