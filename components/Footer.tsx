@@ -1,7 +1,20 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { content } from "@/lib/content";
 
 export function Footer() {
   const f = content.footer;
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  const resolveHref = (href: string) => {
+    if (href.startsWith("#") && !isHome) return `/${href}`;
+    return href;
+  };
+
+  const isExternal = (href: string) =>
+    href.startsWith("http") || href.startsWith("mailto:");
 
   return (
     <footer className="relative pt-16 pb-10 border-t border-[var(--color-rule)] bg-[var(--color-paper)]">
@@ -40,16 +53,21 @@ export function Footer() {
           <div>
             <div className="ledger mb-4">Навигация</div>
             <ul className="space-y-2 text-[14px]">
-              {f.links.map((l) => (
-                <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-[var(--color-ink-2)] hover:text-[var(--color-flame)] transition-colors"
-                  >
-                    {l.label}
-                  </a>
-                </li>
-              ))}
+              {f.links.map((l) => {
+                const external = isExternal(l.href);
+                return (
+                  <li key={l.label}>
+                    <a
+                      href={resolveHref(l.href)}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
+                      className="text-[var(--color-ink-2)] hover:text-[var(--color-flame)] transition-colors"
+                    >
+                      {l.label}
+                    </a>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

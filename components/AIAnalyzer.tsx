@@ -157,7 +157,10 @@ export function AIAnalyzer() {
                   business-analyzer.agent
                 </span>
               </div>
-              <span className="font-[family-name:var(--font-mono)] text-[10px] text-white/40">
+              <span
+                id="char-count"
+                className="font-[family-name:var(--font-mono)] text-[10px] text-white/40"
+              >
                 {charCount}/{maxChars}
               </span>
             </div>
